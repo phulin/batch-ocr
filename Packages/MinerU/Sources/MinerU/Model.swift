@@ -64,6 +64,22 @@ public final class MinerUModel: Module {
         )
     }
 
+    /// Run only the vision tower on raw Float pixel values + grid; returns flat features.
+    /// Used by the parity harness — keeps the test free of direct MLX symbols.
+    public func runVisionTower(
+        pixelValues: [Float],
+        pixelShape: [Int],
+        gridT: Int,
+        gridH: Int,
+        gridW: Int
+    ) -> (features: [Float], outShape: [Int]) {
+        let dtype = visionTower.patchEmbed.proj.weight.dtype
+        let arr = MLXArray(pixelValues).reshaped(pixelShape).asType(dtype)
+        let features = visionTower(pixelValues: arr, gridTHW: [(t: gridT, h: gridH, w: gridW)])
+        let f32: [Float] = features.asType(.float32).asArray(Float.self)
+        return (f32, features.shape)
+    }
+
     /// Replace embeddings at `imageTokenId` positions with the corresponding vision feature row.
     /// `inputEmbeds`: `[1, L, D]`. `features`: `[N, D]` where N == number of image tokens.
     private func spliceImageFeatures(

@@ -10,6 +10,7 @@
 		0FA0D1798AC772450EB8C0DB /* MinerUInferenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */; };
 		115CBDD292B998DD1C502395 /* SearchablePDFWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */; };
 		2614E0FECCBF20D3094ADA6B /* MinerU in Frameworks */ = {isa = PBXBuildFile; productRef = F040DE855AF3850F0F41CA74 /* MinerU */; };
+		2CB6C062DE524B0F3D8CFD9C /* VisionParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD16364A5EA7C261895DBF /* VisionParityTests.swift */; };
 		4ED48F29EFC585B5EA79646C /* PDFViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */; };
 		61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146A7298BEB31F35420EAC7A /* OCRService.swift */; };
 		69CBD85D852D0BE6419026C1 /* MinerU in Frameworks */ = {isa = PBXBuildFile; productRef = B2F92F397632C6EA4BC6107E /* MinerU */; };
@@ -34,6 +35,7 @@
 		058DA785056095AB203F3840 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePDFWriter.swift; sourceTree = "<group>"; };
 		146A7298BEB31F35420EAC7A /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
+		18FD16364A5EA7C261895DBF /* VisionParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionParityTests.swift; sourceTree = "<group>"; };
 		1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueModel.swift; sourceTree = "<group>"; };
 		1BF3C399E9BC22C70AFAC5F4 /* MinerU */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MinerU; path = Packages/MinerU; sourceTree = SOURCE_ROOT; };
 		217C09E4C25ADEF41365D723 /* PDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFRenderer.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */,
+				18FD16364A5EA7C261895DBF /* VisionParityTests.swift */,
 			);
 			path = BatchOCRTests;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FA0D1798AC772450EB8C0DB /* MinerUInferenceTests.swift in Sources */,
+				2CB6C062DE524B0F3D8CFD9C /* VisionParityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

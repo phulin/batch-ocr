@@ -39,12 +39,40 @@ def main() -> None:
 
     # Imports deferred so --help works without heavy deps installed.
     from mineru_vl_utils import MinerUClient
+    import mlx.core as mx
 
     print(f"loading {args.model_path} (mlx-engine backend)")
     client = MinerUClient(backend="mlx-engine", model_path=args.model_path)
 
     image = Image.open(args.image).convert("RGB")
     print(f"input image: {image.size}")
+
+    # ---- Dump vision-tower artifacts for Swift parity testing ----
+    # Mineru's mlx-engine ultimately calls mlx_vlm; dig out the model + processor.
+    mlx_model = client.client.model
+    processor = client.client.processor
+
+    # Resize as the layout pass does, then run the HF processor and the model's vision tower.
+    layout_image_pil = client.helper.prepare_for_layout(image)
+    if not isinstance(layout_image_pil, Image.Image):
+        layout_image_pil = Image.open(args.image).convert("RGB").resize((1036, 1036))
+
+    inputs = processor(text=["dummy"], images=[layout_image_pil], return_tensors="pt")
+    import numpy as _np
+    pixel_values = mx.array(_np.array(inputs["pixel_values"]))
+    image_grid_thw = mx.array(_np.array(inputs["image_grid_thw"]))
+    _np.save(args.out / "pixel_values.npy", _np.array(pixel_values))
+    _np.save(args.out / "image_grid_thw.npy", _np.array(image_grid_thw))
+    print(f"pixel_values: {pixel_values.shape}, image_grid_thw: {image_grid_thw.tolist()}")
+
+    # Forward through the vision tower only.
+    vision_features = mlx_model.vision_tower(
+        pixel_values.astype(mlx_model.vision_tower.patch_embed.proj.weight.dtype),
+        image_grid_thw,
+        output_hidden_states=False,
+    )
+    _np.save(args.out / "vision_features.npy", _np.array(vision_features.astype(mx.float32)))
+    print(f"vision_features: {vision_features.shape} {vision_features.dtype}")
 
     # 1. Save the resized 1036x1036 layout-pass image — Swift parity check for resize.
     layout_image = client.helper.prepare_for_layout(image)

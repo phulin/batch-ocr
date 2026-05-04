@@ -270,10 +270,10 @@ public final class VisionEncoder: Module {
         let wIdx = MLXArray(allWPos)
         let hFreqs = freqs[hIdx]   // [seq, dim/2]
         let wFreqs = freqs[wIdx]
-        // Stack along last axis to pair (h, w) freqs at adjacent indices, mirroring Python's
-        //   stacked_pos_ids = mx.stack([hpos, wpos], axis=-1) → freqs[pos_ids] → reshape(-1)
-        let stackedFreqs = stacked([hFreqs, wFreqs], axis: -1)  // [seq, dim/2, 2]
-        return stackedFreqs.reshaped(stackedFreqs.dim(0), -1)   // [seq, dim]
+        // Python concatenates [h, w] along the freq axis (NOT interleave): pos_ids of shape
+        // [seq, 2] index `[maxGrid, dim/2]` to produce `[seq, 2, dim/2]`, then `.reshape(-1)`
+        // gives [seq, dim] = [h_freq..., w_freq...] block-concat.
+        return concatenated([hFreqs, wFreqs], axis: -1)  // [seq, dim]
     }
 
     /// Build `cu_seqlens` cumulative offsets including 0 prefix and final total.
