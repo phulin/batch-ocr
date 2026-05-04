@@ -1,0 +1,141 @@
+[
+  {
+    "type": "page_number",
+    "bbox": [
+      0.146,
+      0.06,
+      0.16,
+      0.071
+    ],
+    "angle": 0,
+    "content": null
+  },
+  {
+    "type": "header",
+    "bbox": [
+      0.328,
+      0.057,
+      0.747,
+      0.074
+    ],
+    "angle": 0,
+    "content": null
+  },
+  {
+    "type": "header",
+    "bbox": [
+      0.864,
+      0.057,
+      0.928,
+      0.075
+    ],
+    "angle": 0,
+    "content": null
+  },
+  {
+    "type": "title",
+    "bbox": [
+      0.472,
+      0.081,
+      0.601,
+      0.094
+    ],
+    "angle": 0,
+    "content": null
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.141,
+      0.102,
+      0.929,
+      0.185
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.141,
+      0.197,
+      0.926,
+      0.231
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.143,
+      0.231,
+      0.926,
+      0.395
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.139,
+      0.395,
+      0.926,
+      0.542
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.137,
+      0.542,
+      0.926,
+      0.656
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.137,
+      0.657,
+      0.926,
+      0.772
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "text",
+    "bbox": [
+      0.137,
+      0.772,
+      0.926,
+      0.921
+    ],
+    "angle": 0,
+    "content": null,
+    "merge_prev": false
+  },
+  {
+    "type": "page_number",
+    "bbox": [
+      0.21,
+      0.924,
+      0.225,
+      0.936
+    ],
+    "angle": 0,
+    "content": null
+  }
+]

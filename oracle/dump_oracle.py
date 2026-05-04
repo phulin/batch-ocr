@@ -53,28 +53,21 @@ def main() -> None:
 
     # 2. Run layout pass; capture raw text + parsed blocks.
     print("layout pass")
-    result = client.layout_detect(image)
-    blocks = result.blocks
+    blocks = list(client.layout_detect(image))
 
-    # The high-level API doesn't expose the raw model text directly — re-call the
-    # underlying _predict to get it. (Calling layout_detect twice is fine; it's idempotent.)
-    layout_prompt = client.helper.prompts.get("[layout]") or client.helper.prompts["[default]"]
-    layout_params = client.helper.sampling_params.get("[layout]") \
+    # Re-call underlying _predict to capture the raw model text — high-level API hides it.
+    layout_prompt = (
+        client.helper.prompts.get("[layout]") or client.helper.prompts["[default]"]
+    )
+    layout_params = (
+        client.helper.sampling_params.get("[layout]")
         or client.helper.sampling_params.get("[default]")
+    )
     raw_output = client._predict(layout_image, layout_prompt, layout_params, None, None)
     (args.out / "layout_text.txt").write_text(raw_output.text)
 
-    # 3. Serialize blocks.
-    blocks_json = []
-    for b in blocks:
-        blocks_json.append({
-            "type": b.type,
-            "bbox": b.bbox,
-            "angle": getattr(b, "angle", None),
-            "merge_with_prev": getattr(b, "merge_with_prev", False),
-            "content": getattr(b, "content", None),
-        })
-    (args.out / "blocks.json").write_text(json.dumps(blocks_json, indent=2))
+    # 3. Serialize blocks. ContentBlock is a dict subclass.
+    (args.out / "blocks.json").write_text(json.dumps([dict(b) for b in blocks], indent=2))
 
     print(f"oracle dumped to {args.out}: {len(blocks)} blocks")
 
