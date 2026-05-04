@@ -30,6 +30,36 @@ public final class MinerUPipeline {
         return MinerUPipeline(model: model, tokenizer: tokenizer, config: config)
     }
 
+    /// Stage-1 layout pass driven by an externally-provided vision-feature tensor (skips
+    /// our VisionEncoder). Used to bisect whether residual divergence lives in vision or LM.
+    public func detectLayoutWithFeatures(
+        gridT: Int,
+        gridH: Int,
+        gridW: Int,
+        visionFeatures: [Float],
+        visionFeatureRows: Int,
+        visionFeatureCols: Int
+    ) throws -> (text: String, blocks: [ContentBlock]) {
+        let mergeSq = config.vision.spatialMergeSize * config.vision.spatialMergeSize
+        let imageTokenCount = (gridT * gridH * gridW) / mergeSq
+        precondition(visionFeatureRows == imageTokenCount,
+                     "feature row count must match image_token count")
+
+        let inputIds = try buildLayoutPromptIds(imageTokenCount: imageTokenCount)
+        let result = generator.generate(
+            inputIds: inputIds,
+            visionFeaturesOverride: (
+                values: visionFeatures,
+                rows: visionFeatureRows,
+                cols: visionFeatureCols
+            ),
+            gridTHW: [(t: gridT, h: gridH, w: gridW)],
+            maxTokens: 1024,
+            noRepeatNgramSize: 100
+        )
+        return (result.text, MinerUOutputParser.parse(result.text))
+    }
+
     /// Stage-1 layout pass on the resized 1036x1036 image.
     /// Returns parsed `[ContentBlock]` plus the raw layout-text the model produced.
     public func detectLayout(_ image: CGImage) throws -> (text: String, blocks: [ContentBlock]) {

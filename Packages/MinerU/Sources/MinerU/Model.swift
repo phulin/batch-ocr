@@ -64,6 +64,35 @@ public final class MinerUModel: Module {
         )
     }
 
+    /// Forward-pass with precomputed vision features (for parity bisection).
+    public func callWithVisionFeatures(
+        inputIds: [Int],
+        visionFeatures: MLXArray,
+        gridTHW: [(t: Int, h: Int, w: Int)],
+        caches: [QwenKVCache?]?
+    ) -> MLXArray {
+        let idsArr = MLXArray(inputIds.map { Int32($0) }).expandedDimensions(axis: 0)
+        let baseEmbeds = languageModel.model.embedTokens(idsArr)
+        let inputEmbeds = spliceImageFeatures(
+            inputIds: inputIds,
+            inputEmbeds: baseEmbeds,
+            features: visionFeatures
+        )
+        let (positionIds, _) = QwenRopeIndexer.compute(
+            inputIds: inputIds,
+            imageGridTHW: gridTHW,
+            imageTokenId: imageTokenId,
+            spatialMergeSize: spatialMergeSize
+        )
+        return languageModel(
+            inputs: nil,
+            inputEmbeds: inputEmbeds,
+            mask: nil,
+            caches: caches,
+            positionIds: positionIds
+        )
+    }
+
     /// Run only the vision tower on raw Float pixel values + grid; returns flat features.
     /// Used by the parity harness — keeps the test free of direct MLX symbols.
     public func runVisionTower(

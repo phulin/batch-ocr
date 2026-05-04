@@ -11,8 +11,10 @@
 		115CBDD292B998DD1C502395 /* SearchablePDFWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */; };
 		2614E0FECCBF20D3094ADA6B /* MinerU in Frameworks */ = {isa = PBXBuildFile; productRef = F040DE855AF3850F0F41CA74 /* MinerU */; };
 		2CB6C062DE524B0F3D8CFD9C /* VisionParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD16364A5EA7C261895DBF /* VisionParityTests.swift */; };
+		39307D5DA25FA4CF9975C161 /* ImageProcessorParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52E2536D8DA29E95D825540 /* ImageProcessorParityTests.swift */; };
 		4ED48F29EFC585B5EA79646C /* PDFViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */; };
 		61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146A7298BEB31F35420EAC7A /* OCRService.swift */; };
+		68F2DFF1AA1A2B3C8B9D6EC6 /* LMOnlyParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81326DF1B8AB1ADF33F313A3 /* LMOnlyParityTests.swift */; };
 		69CBD85D852D0BE6419026C1 /* MinerU in Frameworks */ = {isa = PBXBuildFile; productRef = B2F92F397632C6EA4BC6107E /* MinerU */; };
 		86FB342957ADCF2F18FF22BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058DA785056095AB203F3840 /* ContentView.swift */; };
 		AF19C9FBF9BA1E75524A22EA /* PDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217C09E4C25ADEF41365D723 /* PDFRenderer.swift */; };
@@ -44,9 +46,11 @@
 		5969F3DF39F393FEA39B273F /* BatchOCRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BatchOCRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C49FED4742994E6921B2274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewerView.swift; sourceTree = "<group>"; };
+		81326DF1B8AB1ADF33F313A3 /* LMOnlyParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMOnlyParityTests.swift; sourceTree = "<group>"; };
 		8CDC51AD118469DFFC384429 /* BatchOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatchOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9860FE10CE669FB8466B9ADF /* BatchOCRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchOCRApp.swift; sourceTree = "<group>"; };
 		D7C377CFF85A48C267B24DCF /* BatchOCR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BatchOCR.entitlements; sourceTree = "<group>"; };
+		E52E2536D8DA29E95D825540 /* ImageProcessorParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessorParityTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 		3FCC9BCCF4A552B7F6FC413E /* BatchOCRTests */ = {
 			isa = PBXGroup;
 			children = (
+				E52E2536D8DA29E95D825540 /* ImageProcessorParityTests.swift */,
+				81326DF1B8AB1ADF33F313A3 /* LMOnlyParityTests.swift */,
 				525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */,
 				18FD16364A5EA7C261895DBF /* VisionParityTests.swift */,
 			);
@@ -226,6 +232,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39307D5DA25FA4CF9975C161 /* ImageProcessorParityTests.swift in Sources */,
+				68F2DFF1AA1A2B3C8B9D6EC6 /* LMOnlyParityTests.swift in Sources */,
 				0FA0D1798AC772450EB8C0DB /* MinerUInferenceTests.swift in Sources */,
 				2CB6C062DE524B0F3D8CFD9C /* VisionParityTests.swift in Sources */,
 			);

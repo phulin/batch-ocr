@@ -24,6 +24,7 @@ public final class Generator {
     public func generate(
         inputIds: [Int],
         pixelValues: MLXArray? = nil,
+        visionFeaturesOverride: (values: [Float], rows: Int, cols: Int)? = nil,
         gridTHW: [(t: Int, h: Int, w: Int)] = [],
         maxTokens: Int = 1024,
         noRepeatNgramSize: Int? = nil
@@ -31,13 +32,25 @@ public final class Generator {
         let numLayers = model.languageModel.model.layers.count
         let caches: [QwenKVCache?] = (0..<numLayers).map { _ in QwenKVCache() }
 
-        // Prefill
-        let prefillLogits = model(
-            inputIds: inputIds,
-            pixelValues: pixelValues,
-            gridTHW: gridTHW,
-            caches: caches
-        )
+        // Prefill — either via the vision tower, or by injecting precomputed features.
+        let prefillLogits: MLXArray
+        if let f = visionFeaturesOverride {
+            let featTensor = MLXArray(f.values).reshaped([f.rows, f.cols])
+                .asType(model.languageModel.model.embedTokens.weight.dtype)
+            prefillLogits = model.callWithVisionFeatures(
+                inputIds: inputIds,
+                visionFeatures: featTensor,
+                gridTHW: gridTHW,
+                caches: caches
+            )
+        } else {
+            prefillLogits = model(
+                inputIds: inputIds,
+                pixelValues: pixelValues,
+                gridTHW: gridTHW,
+                caches: caches
+            )
+        }
 
         // Last-token logits → first generated token.
         let lastLogits = prefillLogits[0, prefillLogits.dim(1) - 1]   // [vocab]

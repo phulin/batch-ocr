@@ -168,12 +168,15 @@ public final class QwenAttention: Module {
             (keys, values) = cache.updateAndFetch(keys: k, values: v)
         }
 
+        // Use auto-causal mode for LM autoregressive attention (Python's create_attention_mask).
+        // For decode steps (L=1) we still want causal behavior so future-token logits don't leak.
+        let maskMode: MLXFast.ScaledDotProductAttentionMaskMode = mask.map { .array($0) } ?? .causal
         let out = MLXFast.scaledDotProductAttention(
             queries: q,
             keys: keys,
             values: values,
             scale: scale,
-            mask: mask
+            mask: maskMode
         )
         return oProj(out.transposed(0, 2, 1, 3).reshaped(B, L, -1))
     }
