@@ -12,6 +12,8 @@ public struct ContentBlock: Sendable, Equatable {
     public var mergeWithPrevious: Bool
     /// Trailing content captured between `<|ref_end|>` and the next `<|box_start|>` (or end).
     public var rawTail: String
+    /// Recognized content (set by stage-2 recognition pass; nil after stage-1 layout only).
+    public var content: String?
 
     public struct BBox: Sendable, Equatable {
         public var x1, y1, x2, y2: Double
@@ -86,7 +88,8 @@ public enum MinerUOutputParser {
                     type: type,
                     rotationDegrees: angle,
                     mergeWithPrevious: tail.contains("txt_contd_tgt"),
-                    rawTail: tail
+                    rawTail: tail,
+                    content: nil
                 )
             )
         }

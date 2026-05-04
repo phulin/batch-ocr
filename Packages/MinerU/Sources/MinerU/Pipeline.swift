@@ -121,4 +121,114 @@ public extension MinerUPipeline {
         }
         return try detectLayout(cg)
     }
+
+    /// Stage-2 recognition: crop each block from the source image, run the VLM with the
+    /// type-specific prompt, populate `block.content`. Mutates and returns `blocks`.
+    func recognize(blocks: [ContentBlock], in source: CGImage) throws -> [ContentBlock] {
+        var out = blocks
+        for i in 0..<out.count {
+            let b = out[i]
+            if Self.skipForRecognition(b.type) { continue }
+            guard let crop = cropAndRotate(source, bbox: b.bbox, angleDegrees: b.rotationDegrees) else {
+                continue
+            }
+            out[i].content = try recognizeContent(crop: crop, type: b.type)
+        }
+        return out
+    }
+
+    /// Full pipeline: layout → recognition.
+    func extract(_ image: CGImage) throws -> [ContentBlock] {
+        let (_, blocks) = try detectLayout(image)
+        return try recognize(blocks: blocks, in: image)
+    }
+
+    // MARK: helpers
+
+    /// Block types we never run recognition on (mirrors mineru_client `skip_list`).
+    static func skipForRecognition(_ type: String) -> Bool {
+        ["list", "equation_block", "image_block", "page_number", "header", "footer",
+         "image", "chart", "page_footnote"].contains(type)
+    }
+
+    /// Recognition prompt per block type (mirrors mineru's DEFAULT_PROMPTS).
+    private static let prompts: [String: String] = [
+        "table": "\nTable Recognition:",
+        "equation": "\nFormula Recognition:",
+        "image": "\nImage Analysis:",
+        "chart": "\nImage Analysis:",
+    ]
+    private static let defaultPrompt = "\nText Recognition:"
+
+    private func recognizeContent(crop: CGImage, type: String) throws -> String {
+        let processed = try processor.process(crop)
+        let pixelTensor = MLXArray(processed.pixelValues).reshaped(processed.sequenceLength, -1)
+        let grid = (t: processed.gridTHW[0], h: processed.gridTHW[1], w: processed.gridTHW[2])
+        let mergeSq = config.vision.spatialMergeSize * config.vision.spatialMergeSize
+        let imageTokenCount = (grid.t * grid.h * grid.w) / mergeSq
+        let prompt = Self.prompts[type] ?? Self.defaultPrompt
+        let inputIds = try buildContentPromptIds(imageTokenCount: imageTokenCount, recognitionPrompt: prompt)
+        let result = generator.generate(
+            inputIds: inputIds,
+            pixelValues: pixelTensor,
+            gridTHW: [grid],
+            maxTokens: 4096,
+            // Layout pass uses no_repeat=100 to avoid loops; for content extraction MinerU's
+            // defaults set per-type frequency_penalty but we keep it simple with no n-gram filter
+            // to allow legitimate repetition (table rows, etc).
+            noRepeatNgramSize: nil
+        )
+        return result.text
+    }
+
+    private func buildContentPromptIds(imageTokenCount: Int, recognitionPrompt: String) throws -> [Int] {
+        let systemPrompt = "You are a helpful assistant."
+        let pre =
+            "<|im_start|>system\n\(systemPrompt)<|im_end|>\n" +
+            "<|im_start|>user\n<|vision_start|>"
+        let post = "<|vision_end|>\(recognitionPrompt)<|im_end|>\n<|im_start|>assistant\n"
+        let preIds = try tokenizer.encode(text: pre)
+        let postIds = try tokenizer.encode(text: post)
+        let imagePadIds = Array(repeating: config.imageTokenId, count: imageTokenCount)
+        return preIds + imagePadIds + postIds
+    }
+
+    /// Crop `source` to the normalized bbox in original-image coordinates, then rotate by
+    /// `angleDegrees` if non-nil and not 0. Returns nil for degenerate crops.
+    private func cropAndRotate(_ source: CGImage, bbox: ContentBlock.BBox, angleDegrees: Int?) -> CGImage? {
+        let w = source.width, h = source.height
+        let x1 = max(0, Int((bbox.x1 * Double(w)).rounded()))
+        let y1 = max(0, Int((bbox.y1 * Double(h)).rounded()))
+        let x2 = min(w, Int((bbox.x2 * Double(w)).rounded()))
+        let y2 = min(h, Int((bbox.y2 * Double(h)).rounded()))
+        guard x2 > x1, y2 > y1 else { return nil }
+        let rect = CGRect(x: x1, y: y1, width: x2 - x1, height: y2 - y1)
+        guard let cropped = source.cropping(to: rect) else { return nil }
+        guard let angle = angleDegrees, angle == 90 || angle == 180 || angle == 270 else {
+            return cropped
+        }
+        return rotate(cropped, by: angle)
+    }
+
+    private func rotate(_ image: CGImage, by degrees: Int) -> CGImage? {
+        let radians = CGFloat(degrees) * .pi / 180
+        let w = image.width, h = image.height
+        let outW: Int, outH: Int
+        switch degrees {
+        case 90, 270: outW = h; outH = w
+        default:      outW = w; outH = h
+        }
+        let cs = CGColorSpaceCreateDeviceRGB()
+        guard let ctx = CGContext(
+            data: nil,
+            width: outW, height: outH,
+            bitsPerComponent: 8, bytesPerRow: 0, space: cs,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return nil }
+        ctx.translateBy(x: CGFloat(outW) / 2, y: CGFloat(outH) / 2)
+        ctx.rotate(by: radians)
+        ctx.translateBy(x: -CGFloat(w) / 2, y: -CGFloat(h) / 2)
+        ctx.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
+        return ctx.makeImage()
+    }
 }

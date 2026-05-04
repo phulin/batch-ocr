@@ -21,6 +21,7 @@
 		AFE0630BA62DE9E7FD04F57B /* PDFOCRPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */; };
 		BEC8826E9B86550B491884A4 /* BatchOCRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9860FE10CE669FB8466B9ADF /* BatchOCRApp.swift */; };
 		C6498F69EE1AFDCDBE012373 /* QueueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */; };
+		FFF49514EF3F07303E54FDCB /* Stage2ExtractionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E65F5057F0D7457DC7202 /* Stage2ExtractionTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		1BF3C399E9BC22C70AFAC5F4 /* MinerU */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MinerU; path = Packages/MinerU; sourceTree = SOURCE_ROOT; };
 		217C09E4C25ADEF41365D723 /* PDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFRenderer.swift; sourceTree = "<group>"; };
 		33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFOCRPipeline.swift; sourceTree = "<group>"; };
+		3F8E65F5057F0D7457DC7202 /* Stage2ExtractionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stage2ExtractionTest.swift; sourceTree = "<group>"; };
 		525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinerUInferenceTests.swift; sourceTree = "<group>"; };
 		5969F3DF39F393FEA39B273F /* BatchOCRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BatchOCRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C49FED4742994E6921B2274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				E52E2536D8DA29E95D825540 /* ImageProcessorParityTests.swift */,
 				81326DF1B8AB1ADF33F313A3 /* LMOnlyParityTests.swift */,
 				525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */,
+				3F8E65F5057F0D7457DC7202 /* Stage2ExtractionTest.swift */,
 				18FD16364A5EA7C261895DBF /* VisionParityTests.swift */,
 			);
 			path = BatchOCRTests;
@@ -235,6 +238,7 @@
 				39307D5DA25FA4CF9975C161 /* ImageProcessorParityTests.swift in Sources */,
 				68F2DFF1AA1A2B3C8B9D6EC6 /* LMOnlyParityTests.swift in Sources */,
 				0FA0D1798AC772450EB8C0DB /* MinerUInferenceTests.swift in Sources */,
+				FFF49514EF3F07303E54FDCB /* Stage2ExtractionTest.swift in Sources */,
 				2CB6C062DE524B0F3D8CFD9C /* VisionParityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
