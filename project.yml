@@ -5,6 +5,10 @@ options:
     macOS: "15.0"
   createIntermediateGroups: true
 
+packages:
+  MinerU:
+    path: Packages/MinerU
+
 settings:
   base:
     SWIFT_VERSION: "5.10"
@@ -22,10 +26,30 @@ targets:
     deploymentTarget: "15.0"
     sources:
       - path: BatchOCR
+    dependencies:
+      - package: MinerU
+        product: MinerU
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.phulin.BatchOCR
         INFOPLIST_FILE: BatchOCR/Info.plist
         CODE_SIGN_ENTITLEMENTS: BatchOCR/BatchOCR.entitlements
         GENERATE_INFOPLIST_FILE: NO
-        ENABLE_APP_SANDBOX: YES
+        ENABLE_APP_SANDBOX: NO
+
+  BatchOCRTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: BatchOCRTests
+    dependencies:
+      - target: BatchOCR
+      - package: MinerU
+        product: MinerU
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.phulin.BatchOCRTests
+        GENERATE_INFOPLIST_FILE: YES
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: NO

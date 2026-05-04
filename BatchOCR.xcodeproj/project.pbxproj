@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FA0D1798AC772450EB8C0DB /* MinerUInferenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */; };
 		115CBDD292B998DD1C502395 /* SearchablePDFWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */; };
+		2614E0FECCBF20D3094ADA6B /* MinerU in Frameworks */ = {isa = PBXBuildFile; productRef = F040DE855AF3850F0F41CA74 /* MinerU */; };
 		4ED48F29EFC585B5EA79646C /* PDFViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */; };
 		61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146A7298BEB31F35420EAC7A /* OCRService.swift */; };
+		69CBD85D852D0BE6419026C1 /* MinerU in Frameworks */ = {isa = PBXBuildFile; productRef = B2F92F397632C6EA4BC6107E /* MinerU */; };
 		86FB342957ADCF2F18FF22BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058DA785056095AB203F3840 /* ContentView.swift */; };
 		AF19C9FBF9BA1E75524A22EA /* PDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217C09E4C25ADEF41365D723 /* PDFRenderer.swift */; };
 		AFE0630BA62DE9E7FD04F57B /* PDFOCRPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */; };
@@ -17,13 +20,26 @@
 		C6498F69EE1AFDCDBE012373 /* QueueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B19DE729AD6E27B96A3D7344 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 922EADBFB52724BD16D751F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED34F2670338FD16F8F9A5FC;
+			remoteInfo = BatchOCR;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		058DA785056095AB203F3840 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePDFWriter.swift; sourceTree = "<group>"; };
 		146A7298BEB31F35420EAC7A /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
 		1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueModel.swift; sourceTree = "<group>"; };
+		1BF3C399E9BC22C70AFAC5F4 /* MinerU */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MinerU; path = Packages/MinerU; sourceTree = SOURCE_ROOT; };
 		217C09E4C25ADEF41365D723 /* PDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFRenderer.swift; sourceTree = "<group>"; };
 		33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFOCRPipeline.swift; sourceTree = "<group>"; };
+		525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinerUInferenceTests.swift; sourceTree = "<group>"; };
+		5969F3DF39F393FEA39B273F /* BatchOCRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BatchOCRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C49FED4742994E6921B2274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewerView.swift; sourceTree = "<group>"; };
 		8CDC51AD118469DFFC384429 /* BatchOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatchOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,7 +47,42 @@
 		D7C377CFF85A48C267B24DCF /* BatchOCR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BatchOCR.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		0EB122352DEBA997614DC349 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2614E0FECCBF20D3094ADA6B /* MinerU in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E48168E1BC44CED87EC50B75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69CBD85D852D0BE6419026C1 /* MinerU in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		3FCC9BCCF4A552B7F6FC413E /* BatchOCRTests */ = {
+			isa = PBXGroup;
+			children = (
+				525092B0D94801BA6639B29F /* MinerUInferenceTests.swift */,
+			);
+			path = BatchOCRTests;
+			sourceTree = "<group>";
+		};
+		48057A99C1B4EFA1405D022F /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				1BF3C399E9BC22C70AFAC5F4 /* MinerU */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 		850628E2696E588735770864 /* BatchOCR */ = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				8CDC51AD118469DFFC384429 /* BatchOCR.app */,
+				5969F3DF39F393FEA39B273F /* BatchOCRTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				850628E2696E588735770864 /* BatchOCR */,
+				3FCC9BCCF4A552B7F6FC413E /* BatchOCRTests */,
+				48057A99C1B4EFA1405D022F /* Packages */,
 				AA650BEAC8326F40CAE9F548 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,11 +122,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A0A0FA6B5356D4C5A0D2EBA5 /* BatchOCRTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00F01E8973D139F6F6EB3348 /* Build configuration list for PBXNativeTarget "BatchOCRTests" */;
+			buildPhases = (
+				440EAE4D533C23BFCFF2FAF6 /* Sources */,
+				0EB122352DEBA997614DC349 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				828A9F71315494DB3E697356 /* PBXTargetDependency */,
+			);
+			name = BatchOCRTests;
+			packageProductDependencies = (
+				F040DE855AF3850F0F41CA74 /* MinerU */,
+			);
+			productName = BatchOCRTests;
+			productReference = 5969F3DF39F393FEA39B273F /* BatchOCRTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		ED34F2670338FD16F8F9A5FC /* BatchOCR */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9F7F070937E762506D69F43 /* Build configuration list for PBXNativeTarget "BatchOCR" */;
 			buildPhases = (
 				43CC34FF5F2D4B446C3CBBC0 /* Sources */,
+				E48168E1BC44CED87EC50B75 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -80,6 +155,7 @@
 			);
 			name = BatchOCR;
 			packageProductDependencies = (
+				B2F92F397632C6EA4BC6107E /* MinerU */,
 			);
 			productName = BatchOCR;
 			productReference = 8CDC51AD118469DFFC384429 /* BatchOCR.app */;
@@ -94,6 +170,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					A0A0FA6B5356D4C5A0D2EBA5 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					ED34F2670338FD16F8F9A5FC = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -109,12 +189,16 @@
 			);
 			mainGroup = E8B22D80651A0F3728420988;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				43DD660ECBDF1A1899456887 /* XCLocalSwiftPackageReference "Packages/MinerU" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AA650BEAC8326F40CAE9F548 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				ED34F2670338FD16F8F9A5FC /* BatchOCR */,
+				A0A0FA6B5356D4C5A0D2EBA5 /* BatchOCRTests */,
 			);
 		};
 /* End PBXProject section */
@@ -135,16 +219,52 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		440EAE4D533C23BFCFF2FAF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FA0D1798AC772450EB8C0DB /* MinerUInferenceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		828A9F71315494DB3E697356 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED34F2670338FD16F8F9A5FC /* BatchOCR */;
+			targetProxy = B19DE729AD6E27B96A3D7344 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		459AEF41B97CBCED09F0F6C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phulin.BatchOCRTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BatchOCR.app/Contents/MacOS/BatchOCR";
+			};
+			name = Release;
+		};
 		5FF257263E9DB37CDB1D7F5C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BatchOCR/BatchOCR.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = BatchOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -232,7 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BatchOCR/BatchOCR.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = BatchOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -242,6 +362,26 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.phulin.BatchOCR;
 				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C800EBABAAC45DCE6DBC8D44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phulin.BatchOCRTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BatchOCR.app/Contents/MacOS/BatchOCR";
 			};
 			name = Debug;
 		};
@@ -310,6 +450,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		00F01E8973D139F6F6EB3348 /* Build configuration list for PBXNativeTarget "BatchOCRTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C800EBABAAC45DCE6DBC8D44 /* Debug */,
+				459AEF41B97CBCED09F0F6C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		35C153B96D4DA1526D37F7C7 /* Build configuration list for PBXProject "BatchOCR" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -329,6 +478,24 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		43DD660ECBDF1A1899456887 /* XCLocalSwiftPackageReference "Packages/MinerU" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MinerU;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2F92F397632C6EA4BC6107E /* MinerU */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MinerU;
+		};
+		F040DE855AF3850F0F41CA74 /* MinerU */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MinerU;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 922EADBFB52724BD16D751F8 /* Project object */;
 }

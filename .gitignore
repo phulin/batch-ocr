@@ -2,6 +2,7 @@
 refs/
 build/
 .build/
+.xc-derived/
 DerivedData/
 *.xcuserstate
 xcuserdata/
@@ -15,3 +16,5 @@ oracle/uv.lock
 oracle/fixtures/*/
 !oracle/fixtures/.gitkeep
 *.npy
+/tmp/xcbuild.log
+/tmp/xctest.log
