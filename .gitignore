@@ -1,0 +1,12 @@
+.DS_Store
+refs/
+build/
+.build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.swiftpm/
+Models/
+*.safetensors
+*.gguf
+*.mlpackage

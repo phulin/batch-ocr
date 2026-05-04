@@ -1,0 +1,326 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146A7298BEB31F35420EAC7A /* OCRService.swift */; };
+		86FB342957ADCF2F18FF22BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058DA785056095AB203F3840 /* ContentView.swift */; };
+		AF19C9FBF9BA1E75524A22EA /* PDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217C09E4C25ADEF41365D723 /* PDFRenderer.swift */; };
+		AFE0630BA62DE9E7FD04F57B /* PDFOCRPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */; };
+		BEC8826E9B86550B491884A4 /* BatchOCRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9860FE10CE669FB8466B9ADF /* BatchOCRApp.swift */; };
+		C6498F69EE1AFDCDBE012373 /* QueueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		058DA785056095AB203F3840 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		146A7298BEB31F35420EAC7A /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
+		1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueModel.swift; sourceTree = "<group>"; };
+		217C09E4C25ADEF41365D723 /* PDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFRenderer.swift; sourceTree = "<group>"; };
+		33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFOCRPipeline.swift; sourceTree = "<group>"; };
+		6C49FED4742994E6921B2274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8CDC51AD118469DFFC384429 /* BatchOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatchOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9860FE10CE669FB8466B9ADF /* BatchOCRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchOCRApp.swift; sourceTree = "<group>"; };
+		D7C377CFF85A48C267B24DCF /* BatchOCR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BatchOCR.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		850628E2696E588735770864 /* BatchOCR */ = {
+			isa = PBXGroup;
+			children = (
+				D7C377CFF85A48C267B24DCF /* BatchOCR.entitlements */,
+				9860FE10CE669FB8466B9ADF /* BatchOCRApp.swift */,
+				058DA785056095AB203F3840 /* ContentView.swift */,
+				6C49FED4742994E6921B2274 /* Info.plist */,
+				146A7298BEB31F35420EAC7A /* OCRService.swift */,
+				33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */,
+				217C09E4C25ADEF41365D723 /* PDFRenderer.swift */,
+				1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */,
+			);
+			path = BatchOCR;
+			sourceTree = "<group>";
+		};
+		AA650BEAC8326F40CAE9F548 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8CDC51AD118469DFFC384429 /* BatchOCR.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8B22D80651A0F3728420988 = {
+			isa = PBXGroup;
+			children = (
+				850628E2696E588735770864 /* BatchOCR */,
+				AA650BEAC8326F40CAE9F548 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ED34F2670338FD16F8F9A5FC /* BatchOCR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9F7F070937E762506D69F43 /* Build configuration list for PBXNativeTarget "BatchOCR" */;
+			buildPhases = (
+				43CC34FF5F2D4B446C3CBBC0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BatchOCR;
+			packageProductDependencies = (
+			);
+			productName = BatchOCR;
+			productReference = 8CDC51AD118469DFFC384429 /* BatchOCR.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		922EADBFB52724BD16D751F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					ED34F2670338FD16F8F9A5FC = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 35C153B96D4DA1526D37F7C7 /* Build configuration list for PBXProject "BatchOCR" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = E8B22D80651A0F3728420988;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AA650BEAC8326F40CAE9F548 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED34F2670338FD16F8F9A5FC /* BatchOCR */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		43CC34FF5F2D4B446C3CBBC0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEC8826E9B86550B491884A4 /* BatchOCRApp.swift in Sources */,
+				86FB342957ADCF2F18FF22BE /* ContentView.swift in Sources */,
+				61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */,
+				AFE0630BA62DE9E7FD04F57B /* PDFOCRPipeline.swift in Sources */,
+				AF19C9FBF9BA1E75524A22EA /* PDFRenderer.swift in Sources */,
+				C6498F69EE1AFDCDBE012373 /* QueueModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5FF257263E9DB37CDB1D7F5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BatchOCR/BatchOCR.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BatchOCR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phulin.BatchOCR;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		754C75296D7F7748F5331EC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		B763B190945DFB5DF57D502F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BatchOCR/BatchOCR.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BatchOCR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phulin.BatchOCR;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DC3FEC64C246DF41C3A0C540 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		35C153B96D4DA1526D37F7C7 /* Build configuration list for PBXProject "BatchOCR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				754C75296D7F7748F5331EC2 /* Debug */,
+				DC3FEC64C246DF41C3A0C540 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B9F7F070937E762506D69F43 /* Build configuration list for PBXNativeTarget "BatchOCR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B763B190945DFB5DF57D502F /* Debug */,
+				5FF257263E9DB37CDB1D7F5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 922EADBFB52724BD16D751F8 /* Project object */;
+}
