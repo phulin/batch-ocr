@@ -4,22 +4,24 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @State private var queue = OCRQueue()
     @State private var importing = false
-    @State private var pickingFolder = false
+    @State private var isTargeted = false
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
-        NavigationSplitView {
-            SettingsPanel(queue: queue, pickFolder: { pickingFolder = true })
-                .navigationSplitViewColumnWidth(min: 240, ideal: 280)
-        } detail: {
-            VStack(spacing: 0) {
-                Toolbar(
-                    addAction: { importing = true },
-                    runAction: { queue.startAll() },
-                    runDisabled: queue.jobs.isEmpty || queue.outputFolder == nil
-                )
+        VStack(spacing: 16) {
+            DropZone(isTargeted: $isTargeted) { importing = true }
+                .frame(minHeight: 180)
+
+            if !queue.jobs.isEmpty {
                 Divider()
-                JobList(queue: queue)
+                JobList(queue: queue) { url in
+                    openWindow(value: url)
+                }
             }
+        }
+        .padding()
+        .onAppear {
+            queue.onJobReady = { url in openWindow(value: url) }
         }
         .fileImporter(
             isPresented: $importing,
@@ -28,118 +30,92 @@ struct ContentView: View {
         ) { result in
             if case .success(let urls) = result { queue.add(urls) }
         }
-        .fileImporter(
-            isPresented: $pickingFolder,
-            allowedContentTypes: [.folder]
-        ) { result in
-            if case .success(let url) = result {
-                queue.outputFolder = url
+        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+            handleDrop(providers)
+        }
+    }
+
+    private func handleDrop(_ providers: [NSItemProvider]) -> Bool {
+        var urls: [URL] = []
+        let group = DispatchGroup()
+        for provider in providers {
+            group.enter()
+            _ = provider.loadObject(ofClass: URL.self) { url, _ in
+                if let url, url.pathExtension.lowercased() == "pdf" { urls.append(url) }
+                group.leave()
             }
         }
+        group.notify(queue: .main) {
+            if !urls.isEmpty { queue.add(urls) }
+        }
+        return true
     }
 }
 
-private struct Toolbar: View {
-    let addAction: () -> Void
-    let runAction: () -> Void
-    let runDisabled: Bool
+private struct DropZone: View {
+    @Binding var isTargeted: Bool
+    let onClick: () -> Void
 
     var body: some View {
-        HStack {
-            Button("Add PDFs…", systemImage: "plus", action: addAction)
-            Button("Run All", systemImage: "play.fill", action: runAction)
-                .disabled(runDisabled)
-            Spacer()
-        }
-        .padding(8)
-    }
-}
-
-private struct SettingsPanel: View {
-    @Bindable var queue: OCRQueue
-    let pickFolder: () -> Void
-
-    var body: some View {
-        Form {
-            Section("Output") {
-                Button {
-                    pickFolder()
-                } label: {
-                    HStack {
-                        Image(systemName: "folder")
-                        Text(queue.outputFolder?.lastPathComponent ?? "Choose folder…")
-                            .lineLimit(1)
-                            .truncationMode(.middle)
-                    }
-                }
-                Picker("Format", selection: $queue.format) {
-                    ForEach(OutputFormat.allCases) { fmt in
-                        Text(fmt.rawValue.capitalized).tag(fmt)
-                    }
-                }
+        Button(action: onClick) {
+            VStack(spacing: 8) {
+                Image(systemName: "doc.text.viewfinder")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.secondary)
+                Text("Drop PDFs here, or click to choose")
+                    .foregroundStyle(.secondary)
             }
-            Section("OCR") {
-                LabeledContent("Render scale") {
-                    HStack {
-                        Slider(value: $queue.scale, in: 1.0...4.0, step: 0.5)
-                        Text(String(format: "%.1f×", queue.scale))
-                            .monospacedDigit()
-                            .frame(width: 44, alignment: .trailing)
-                    }
-                }
-                TextField("Languages (comma-separated)", text: $queue.languages)
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(24)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .strokeBorder(
+                        isTargeted ? Color.accentColor : Color.secondary.opacity(0.4),
+                        style: StrokeStyle(lineWidth: 2, dash: [6, 4])
+                    )
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(isTargeted ? Color.accentColor.opacity(0.08) : .clear)
+                    )
+            )
         }
-        .formStyle(.grouped)
+        .buttonStyle(.plain)
     }
 }
 
 private struct JobList: View {
     @Bindable var queue: OCRQueue
+    let openResult: (URL) -> Void
 
     var body: some View {
-        if queue.jobs.isEmpty {
-            ContentUnavailableView(
-                "No PDFs",
-                systemImage: "doc.text.magnifyingglass",
-                description: Text("Add PDFs to start OCR.")
-            )
-        } else {
-            List {
-                ForEach(queue.jobs) { job in
-                    JobRow(job: job, queue: queue)
-                }
+        List {
+            ForEach(queue.jobs) { job in
+                JobRow(job: job, queue: queue, openResult: openResult)
             }
         }
+        .frame(minHeight: 120)
     }
 }
 
 private struct JobRow: View {
     @Bindable var job: OCRJob
     let queue: OCRQueue
+    let openResult: (URL) -> Void
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: icon)
-                .foregroundStyle(tint)
+            Image(systemName: icon).foregroundStyle(tint)
             VStack(alignment: .leading, spacing: 2) {
-                Text(job.url.lastPathComponent)
-                    .lineLimit(1)
+                Text(job.url.lastPathComponent).lineLimit(1)
                 Text(job.status.label)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
             if case .running(let p) = job.status {
                 ProgressView(value: p).frame(width: 80)
                 Button("Cancel") { queue.cancel(job) }
-            } else if case .pending = job.status {
-                Button("Run") { queue.start(job) }
-                    .disabled(queue.outputFolder == nil)
             } else if case .done(let url) = job.status {
-                Button("Reveal") {
-                    NSWorkspace.shared.activateFileViewerSelecting([url])
-                }
+                Button("Open") { openResult(url) }
             }
             Button {
                 queue.remove(job)

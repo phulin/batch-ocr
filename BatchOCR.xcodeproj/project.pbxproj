@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		115CBDD292B998DD1C502395 /* SearchablePDFWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */; };
+		4ED48F29EFC585B5EA79646C /* PDFViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */; };
 		61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146A7298BEB31F35420EAC7A /* OCRService.swift */; };
 		86FB342957ADCF2F18FF22BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058DA785056095AB203F3840 /* ContentView.swift */; };
 		AF19C9FBF9BA1E75524A22EA /* PDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217C09E4C25ADEF41365D723 /* PDFRenderer.swift */; };
@@ -17,11 +19,13 @@
 
 /* Begin PBXFileReference section */
 		058DA785056095AB203F3840 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePDFWriter.swift; sourceTree = "<group>"; };
 		146A7298BEB31F35420EAC7A /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
 		1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueModel.swift; sourceTree = "<group>"; };
 		217C09E4C25ADEF41365D723 /* PDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFRenderer.swift; sourceTree = "<group>"; };
 		33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFOCRPipeline.swift; sourceTree = "<group>"; };
 		6C49FED4742994E6921B2274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewerView.swift; sourceTree = "<group>"; };
 		8CDC51AD118469DFFC384429 /* BatchOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatchOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9860FE10CE669FB8466B9ADF /* BatchOCRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchOCRApp.swift; sourceTree = "<group>"; };
 		D7C377CFF85A48C267B24DCF /* BatchOCR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BatchOCR.entitlements; sourceTree = "<group>"; };
@@ -38,7 +42,9 @@
 				146A7298BEB31F35420EAC7A /* OCRService.swift */,
 				33F5541193A1BFC6820D94AC /* PDFOCRPipeline.swift */,
 				217C09E4C25ADEF41365D723 /* PDFRenderer.swift */,
+				7C149C680FBC5C3C1ABC4EF9 /* PDFViewerView.swift */,
 				1A7B0873756F46AD9D21CAA6 /* QueueModel.swift */,
+				102024D509022EBB8D03CAE5 /* SearchablePDFWriter.swift */,
 			);
 			path = BatchOCR;
 			sourceTree = "<group>";
@@ -123,7 +129,9 @@
 				61858D27CAE1A8DCEC5ED20E /* OCRService.swift in Sources */,
 				AFE0630BA62DE9E7FD04F57B /* PDFOCRPipeline.swift in Sources */,
 				AF19C9FBF9BA1E75524A22EA /* PDFRenderer.swift in Sources */,
+				4ED48F29EFC585B5EA79646C /* PDFViewerView.swift in Sources */,
 				C6498F69EE1AFDCDBE012373 /* QueueModel.swift in Sources */,
+				115CBDD292B998DD1C502395 /* SearchablePDFWriter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
