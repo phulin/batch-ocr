@@ -10,3 +10,8 @@ Models/
 *.safetensors
 *.gguf
 *.mlpackage
+oracle/.venv/
+oracle/uv.lock
+oracle/fixtures/*/
+!oracle/fixtures/.gitkeep
+*.npy
