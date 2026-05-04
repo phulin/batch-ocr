@@ -10,6 +10,8 @@ dependencies = [
     "pillow>=10",
     "numpy>=1.26",
     "safetensors>=0.4",
+    "torch>=2.4",
+    "torchvision>=0.19",
 ]
 
 [tool.uv]

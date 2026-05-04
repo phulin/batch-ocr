@@ -1,17 +1,18 @@
 """
-Run MinerU 2.5 Pro on a fixture image, dump every artifact the Swift port needs
-to compare against:
+Run MinerU 2.5 Pro via the official Python API and dump artifacts the Swift
+port can compare against.
 
-  - prompt token IDs
-  - first N generated token IDs (greedy)
-  - vision encoder output tensor (.npy)
-  - language model step-0 logits (.npy)
-  - parsed [ContentBlock] JSON
+Stage 1 (this script): user-facing API only — captures the layout-pass output
+text, parsed blocks JSON, and the resized 1036x1036 layout image.
+
+Stage 2 (a follow-up script will add): direct vision_tower / LM-step-0 logits
+dumps by bypassing the high-level client. Needed once Swift port has
+component-level tests.
 
 Usage:
-    uv run python dump_oracle.py <image> --out fixtures/<name>/
-
-The Swift test target loads these artifacts and asserts parity at each stage.
+    cd oracle
+    uv sync
+    uv run python dump_oracle.py ../page2_text.png --out fixtures/page2_text/
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ import argparse
 import json
 from pathlib import Path
 
-import numpy as np
+from PIL import Image
 
 
 def main() -> None:
@@ -28,49 +29,54 @@ def main() -> None:
     ap.add_argument("image", type=Path)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument(
-        "--model",
+        "--model-path",
         default="opendatalab/MinerU2.5-Pro-2604-1.2B",
-        help="HF id; will be downloaded to ~/.cache/huggingface",
+        help="HF id or local path; downloads to ~/.cache/huggingface on first run",
     )
-    ap.add_argument("--max-tokens", type=int, default=64)
     args = ap.parse_args()
 
     args.out.mkdir(parents=True, exist_ok=True)
 
-    # Imports deferred so `--help` works without the heavy deps installed.
-    import mlx.core as mx
-    from mlx_vlm import load
-    from mlx_vlm.utils import load_config
+    # Imports deferred so --help works without heavy deps installed.
     from mineru_vl_utils import MinerUClient
 
-    print(f"loading {args.model}")
-    model, processor = load(args.model)
-    config = load_config(args.model)
+    print(f"loading {args.model_path} (mlx-engine backend)")
+    client = MinerUClient(backend="mlx-engine", model_path=args.model_path)
 
-    client = MinerUClient(model=model, processor=processor, config=config)
+    image = Image.open(args.image).convert("RGB")
+    print(f"input image: {image.size}")
 
-    # Layout pass — single image, MinerU's stage-1 prompt.
+    # 1. Save the resized 1036x1036 layout-pass image — Swift parity check for resize.
+    layout_image = client.helper.prepare_for_layout(image)
+    if isinstance(layout_image, Image.Image):
+        layout_image.save(args.out / "layout_input.png")
+
+    # 2. Run layout pass; capture raw text + parsed blocks.
     print("layout pass")
-    layout_text, layout_tokens = client.layout_with_tokens(args.image)
-    (args.out / "layout_text.txt").write_text(layout_text)
-    (args.out / "layout_tokens.json").write_text(json.dumps(layout_tokens))
+    result = client.layout_detect(image)
+    blocks = result.blocks
 
-    # Parsed blocks
-    blocks = client.parse_layout(layout_text)
-    (args.out / "blocks.json").write_text(
-        json.dumps([b.__dict__ for b in blocks], indent=2)
-    )
+    # The high-level API doesn't expose the raw model text directly — re-call the
+    # underlying _predict to get it. (Calling layout_detect twice is fine; it's idempotent.)
+    layout_prompt = client.helper.prompts.get("[layout]") or client.helper.prompts["[default]"]
+    layout_params = client.helper.sampling_params.get("[layout]") \
+        or client.helper.sampling_params.get("[default]")
+    raw_output = client._predict(layout_image, layout_prompt, layout_params, None, None)
+    (args.out / "layout_text.txt").write_text(raw_output.text)
 
-    # Vision encoder output for the resized page
-    print("vision encoder dump")
-    pixel_values, image_grid_thw = client.preprocess(args.image)
-    np.save(args.out / "pixel_values.npy", np.array(pixel_values, copy=False))
-    np.save(args.out / "image_grid_thw.npy", np.array(image_grid_thw, copy=False))
+    # 3. Serialize blocks.
+    blocks_json = []
+    for b in blocks:
+        blocks_json.append({
+            "type": b.type,
+            "bbox": b.bbox,
+            "angle": getattr(b, "angle", None),
+            "merge_with_prev": getattr(b, "merge_with_prev", False),
+            "content": getattr(b, "content", None),
+        })
+    (args.out / "blocks.json").write_text(json.dumps(blocks_json, indent=2))
 
-    vision_out = model.vision_tower(pixel_values, image_grid_thw)
-    np.save(args.out / "vision_features.npy", np.array(vision_out, copy=False))
-
-    print(f"oracle dumped to {args.out}")
+    print(f"oracle dumped to {args.out}: {len(blocks)} blocks")
 
 
 if __name__ == "__main__":
