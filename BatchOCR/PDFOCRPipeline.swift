@@ -25,7 +25,7 @@ enum PipelineError: Error {
 
 struct PDFOCRPipeline {
     var scale: CGFloat = 3.0
-    var languages: [String] = ["en-US"]
+    var languages: [String] = ["en-US"]   // Unused with MinerU (multilingual by default); kept for UI back-compat.
 
     func process(
         _ url: URL,
@@ -43,7 +43,7 @@ struct PDFOCRPipeline {
             guard let image = PDFRenderer.render(page, scale: scale) else {
                 throw PipelineError.renderFailed(pageIndex: i)
             }
-            let lines = try await OCRService.recognize(image, languages: languages)
+            let lines = try await OCRService.shared.recognize(image)
             pages.append(OCRPage(index: i, lines: lines))
             progress?(i + 1, count)
         }

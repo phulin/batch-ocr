@@ -50,12 +50,17 @@ enum SearchablePDFWriter {
         ctx.setTextDrawingMode(.invisible)
 
         for line in lines where !line.text.isEmpty {
-            // Vision boxes are normalized 0...1, origin bottom-left — same convention as PDF user space.
+            // MinerU bboxes are normalized 0…1 with origin top-left. PDF user space origin is
+            // bottom-left, so flip y. Mapping: pdf_y_bottom = pageBox.height * (1 - top_left_y2).
+            let bx = line.box.minX
+            let by = line.box.minY        // top-left y of bbox
+            let bw = line.box.width
+            let bh = line.box.height
             let rect = CGRect(
-                x: pageBox.minX + line.box.minX * pageBox.width,
-                y: pageBox.minY + line.box.minY * pageBox.height,
-                width: line.box.width * pageBox.width,
-                height: line.box.height * pageBox.height
+                x: pageBox.minX + bx * pageBox.width,
+                y: pageBox.minY + (1.0 - (by + bh)) * pageBox.height,
+                width: bw * pageBox.width,
+                height: bh * pageBox.height
             )
             guard rect.height > 0.5, rect.width > 0.5 else { continue }
 
