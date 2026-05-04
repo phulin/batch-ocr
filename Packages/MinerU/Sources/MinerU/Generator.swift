@@ -70,6 +70,7 @@ public final class Generator {
         var ngramTracker = noRepeatNgramSize.map { NgramTracker(size: $0) }
 
         for _ in 0..<maxTokens {
+            if Task.isCancelled { break }
             if stopTokenIds.contains(nextToken) { break }
             generated.append(nextToken)
             ngramTracker?.append(nextToken)

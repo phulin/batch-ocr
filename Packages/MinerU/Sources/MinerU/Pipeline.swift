@@ -124,9 +124,11 @@ public extension MinerUPipeline {
 
     /// Stage-2 recognition: crop each block from the source image, run the VLM with the
     /// type-specific prompt, populate `block.content`. Mutates and returns `blocks`.
+    /// Honors task cancellation between blocks.
     func recognize(blocks: [ContentBlock], in source: CGImage) throws -> [ContentBlock] {
         var out = blocks
         for i in 0..<out.count {
+            try Task.checkCancellation()
             let b = out[i]
             if Self.skipForRecognition(b.type) { continue }
             guard let crop = cropAndRotate(source, bbox: b.bbox, angleDegrees: b.rotationDegrees) else {
